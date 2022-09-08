@@ -34,7 +34,7 @@
 * [GNOME: Media Control](https://extensions.gnome.org/extension/4470/media-controls/)
 * [GNOME: "App is ready" notification remover](https://extensions.gnome.org/extension/1007/window-is-ready-notification-remover/)
 
-##Sharing screen issue
+## Sharing screen issue
 In `/etc/gdm3/custom.conf` uncomment WaylandEnable=false for launching session via X11.
 
 ## Bluetooth issue
