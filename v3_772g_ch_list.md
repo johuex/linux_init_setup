@@ -34,13 +34,18 @@
 * [GNOME: Media Control](https://extensions.gnome.org/extension/4470/media-controls/)
 * [GNOME: "App is ready" notification remover](https://extensions.gnome.org/extension/1007/window-is-ready-notification-remover/)
 
+##Sharing screen issue
+In `/etc/gdm3/custom.conf` uncomment WaylandEnable=false for launching session via X11.
+
 ## Bluetooth issue
 :exclamation: Before steps in terminal turn on bluetooth in `Settings`
-	~$ bluetoothctl
-	[bluetooth]# power on
-	[bluetooth]# agent on
-	[bluetooth]# default-agent
-	[bluetooth]# scan on
-	[bluetooth]# trust <MAC-address>
-	[bluetooth]# pair <MAC-address>
+
+    ~$ bluetoothctl
+    [bluetooth]# power on
+    [bluetooth]# agent on
+    [bluetooth]# default-agent
+    [bluetooth]# scan on
+    [bluetooth]# trust <MAC-address>
+    [bluetooth]# pair <MAC-address>
+
 	[bluetooth]# connect <MAC-address>
