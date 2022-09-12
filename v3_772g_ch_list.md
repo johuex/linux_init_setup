@@ -24,6 +24,7 @@
 - [x] gsettings secongs for clock
 - [x] creating templates for aws cli and gitconfig files in $HOME
 - [x] Flatpak
+- [x] fix dualboot time issue
 - [ ] BT connect issue
 
 ## Download links

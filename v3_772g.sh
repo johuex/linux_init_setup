@@ -87,6 +87,9 @@ echo '[default]
 aws_access_key_id = 
 aws_secret_access_key = ' > ~/.aws/credentials
 
+echo "fix dual boot time error in Windows and Ubuntu"
+timedatectl set-local-rtc 1
+
 echo "Next your manual steps: 
 1. Reboot;
 2. Add VPN creds;
