@@ -23,6 +23,9 @@ sudo dpkg -i google-chrome-stable_current_amd64.deb
 echo "PyCharm Community"
 sudo snap install pycharm-community --classic
 
+echo "Intellij IDEA Community"
+sudo snap install intellij-idea-community --classic
+
 echo "DBeaver"
 wget https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb
 sudo dpkg -i dbeaver-ce_latest_amd64.deb
