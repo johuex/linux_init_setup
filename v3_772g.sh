@@ -93,6 +93,9 @@ aws_secret_access_key = ' > ~/.aws/credentials
 echo "fix dual boot time error in Windows and Ubuntu"
 timedatectl set-local-rtc 1
 
+echo "*.heic support"
+sudo apt install heif-gdk-pixbuf heif-thumbnailer
+
 echo "Next your manual steps: 
 1. Reboot;
 2. Add VPN creds;

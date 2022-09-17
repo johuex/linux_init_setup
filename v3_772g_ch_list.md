@@ -27,6 +27,7 @@
 - [x] creating templates for aws cli and gitconfig files in $HOME
 - [x] Flatpak
 - [x] fix dualboot time issue
+- [x] *.heic image and thumbnails in nautilus support
 - [ ] BT connect issue
 
 ## Download links
