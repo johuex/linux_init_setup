@@ -20,6 +20,10 @@ echo "Chrome browser"
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo dpkg -i google-chrome-stable_current_amd64.deb
 
+echo "Opera libffmpeg fix"
+sudo snap install -y chromium-ffmpeg
+sudo cp /snap/chromium-ffmpeg/current/chromium-ffmpeg-107578/chromium-ffmpeg/libffmpeg.so /usr/lib/x86_64-linux-gnu/opera/libffmpeg.so
+
 echo "PyCharm Community"
 sudo snap install pycharm-community --classic
 
