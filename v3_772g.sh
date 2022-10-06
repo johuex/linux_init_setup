@@ -103,7 +103,7 @@ sudo apt install heif-gdk-pixbuf heif-thumbnailer
 echo "Next your manual steps: 
 1. Reboot;
 2. Add VPN creds;
-3. Install Slack, Discord, Telegram, Postman(add Desktop link) from WEB;
+3. Install Slack, Discord, Telegram, Postman(and add Desktop link) from WEB;
 4. Fill in creds for AWS;
 5. Fill in creds for git;
 6. Install in your Chrome-based browser GNOME Shell integration extension;

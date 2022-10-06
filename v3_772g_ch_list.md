@@ -9,6 +9,7 @@
 - [x] L2TP/IPSec libraries
 - [x] Opera
 - [x] Chrome
+- [x] Chromium-ffmpeg (need for fixing ffmpeg library in Opera)
 - [x] PyCharm Community
 - [x] Intellij IDEA Community
 - [x] DBeaver
@@ -20,12 +21,14 @@
 - [ ] Telegram (via Snap, Flatpak)
 - [ ] Pinta (via Flatpak)
 - [ ] Clocks (via Flatpak or Snap)
+- [ ] DConf (via Flatpak or deb)
 - [x] chrome-gnome-shell
 - [ ] GNOME Shell Integration in Chrome-based browser
 - [x] imwheel + config
 - [x] gsettings secongs for clock
 - [x] creating templates for aws cli and gitconfig files in $HOME
 - [x] Flatpak
+- [ ] Shotwave (via Flatpak)
 - [x] fix dualboot time issue
 - [x] *.heic image and thumbnails in nautilus support
 - [ ] BT connect issue
