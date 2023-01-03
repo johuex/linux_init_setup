@@ -69,6 +69,9 @@ imwheel
 echo "Add second in GNOME Shell Clock"
 gsettings set org.gnome.desktop.interface clock-show-seconds true
 
+echo "increase GMOME window border width"
+gsettings set org.gnome.mutter draggable-border-width 15
+
 echo "Flatpak"
 sudo apt install -y flatpak gnome-software-plugin-flatpak
 
