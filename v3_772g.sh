@@ -21,7 +21,7 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo dpkg -i google-chrome-stable_current_amd64.deb
 
 echo "Opera libffmpeg fix"
-sudo snap install -y chromium-ffmpeg
+sudo snap install chromium-ffmpeg
 sudo cp /snap/chromium-ffmpeg/current/chromium-ffmpeg-107578/chromium-ffmpeg/libffmpeg.so /usr/lib/x86_64-linux-gnu/opera/libffmpeg.so
 
 echo "PyCharm Community"
@@ -55,16 +55,16 @@ rm awscliv2.zip
 echo "Chrome GNOME shell"
 sudo apt -y install chrome-gnome-shell
 
-echo "Imwheel + Config + Start"
-sudo apt install -y imwheel
-echo '".*"             
-    None, Up, Button4, 5
-    None, Down, Button5, 5
-    Shift_L,   Up,   Shift_L|Button4, 4
-    Shift_L,   Down, Shift_L|Button5, 4
-    Control_L, Up,   Control_L|Button4
-    Control_L, Down, Control_L|Button5' > ~/.imwheelrc
-imwheel
+#echo "Imwheel + Config + Start"
+#sudo apt install -y imwheel
+#echo '".*"             
+#    None, Up, Button4, 5
+#    None, Down, Button5, 5
+#    Shift_L,   Up,   Shift_L|Button4, 4
+#    Shift_L,   Down, Shift_L|Button5, 4
+#    Control_L, Up,   Control_L|Button4
+#    Control_L, Down, Control_L|Button5' > ~/.imwheelrc
+#imwheel
 
 echo "Add second in GNOME Shell Clock"
 gsettings set org.gnome.desktop.interface clock-show-seconds true
@@ -78,7 +78,20 @@ sudo apt install -y flatpak gnome-software-plugin-flatpak
 echo "L2TP/IPSec client libraries"
 sudo apt install -y network-manager-l2tp  network-manager-l2tp-gnome
 
-if [ -e ~/.gitconfig ]
+echo "Telegram"
+wget https://dl.flathub.org/repo/appstream/org.telegram.desktop.flatpakref
+sudo flatpak install -y org.telegram.desktop.flatpakref
+
+echo "Postman"
+curl -O -J -L https://dl.pstmn.io/download/latest/linux_64
+tar -xvzf postman-linux-x64.tar.gz -C ~
+
+#echo "Discord"
+#curl -o discrod.deb O -J -L https://discord.com/api/download?platform=linux&format=deb
+#sudo dpkg -i discord
+#sudo apt install -f
+
+if [ -e ~/.gitconfig ]; then
 echo "Well, Git config file exists!"
 else
 echo "Add Git config file (not filled)"
@@ -106,7 +119,7 @@ sudo apt install heif-gdk-pixbuf heif-thumbnailer
 echo "Next your manual steps: 
 1. Reboot;
 2. Add VPN creds;
-3. Install Slack, Discord, Telegram, Postman(and add Desktop link) from WEB;
+3. Install Slack, Discord, Postman(add Desktop link) from WEB;
 4. Fill in creds for AWS;
 5. Fill in creds for git;
 6. Install in your Chrome-based browser GNOME Shell integration extension;
