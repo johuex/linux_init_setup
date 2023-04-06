@@ -82,14 +82,26 @@ echo "Telegram"
 wget https://dl.flathub.org/repo/appstream/org.telegram.desktop.flatpakref
 sudo flatpak install -y org.telegram.desktop.flatpakref
 
+echo "KDE Clocks"
+wget https://dl.flathub.org/repo/appstream/org.gnome.clocks.flatpakref
+sudo flatpak install -y org.gnome.clocks.flatpakref
+
+echo "Pinta"
+wget https://dl.flathub.org/repo/appstream/com.github.PintaProject.Pinta.flatpakref
+sudo flatpak install -y com.github.PintaProject.Pinta.flatpakref
+
 echo "Postman"
 curl -O -J -L https://dl.pstmn.io/download/latest/linux_64
 tar -xvzf postman-linux-x64.tar.gz -C ~
 
+# problems with autocomplete downloadnig in curl
 #echo "Discord"
 #curl -o discrod.deb O -J -L https://discord.com/api/download?platform=linux&format=deb
 #sudo dpkg -i discord
 #sudo apt install -f
+
+echo "Pass"
+sudo apt install -y pass
 
 if [ -e ~/.gitconfig ]; then
 echo "Well, Git config file exists!"

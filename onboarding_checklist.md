@@ -13,21 +13,22 @@
 - [x] PyCharm Community
 - [x] Intellij IDEA Community
 - [x] DBeaver
-- [ ] Postman + Desktop Link
+- [x] Postman + Desktop Link
+- [ ] Desktop Link for Postman (manual sh script)
 - [x] Docker Engine
 - [x] awscli2
 - [ ] Slack
 - [ ] Discord
-- [ ] Telegram (via Snap, Flatpak)
-- [ ] Pinta (via Flatpak)
-- [ ] Clocks (via Flatpak or Snap)
+- [x] Flatpak
+- [x] Telegram (Flatpak)
+- [x] Pinta (via Flatpak)
+- [x] Clocks (via Flatpak)
 - [ ] DConf (via Flatpak or deb)
 - [x] chrome-gnome-shell
 - [ ] GNOME Shell Integration in Chrome-based browser
 - [x] imwheel + config
 - [x] gsettings secongs for clock
 - [x] creating templates for aws cli and gitconfig files in $HOME
-- [x] Flatpak
 - [ ] Shotwave (via Flatpak)
 - [x] fix dualboot time issue
 - [x] *.heic image and thumbnails in nautilus support
@@ -57,5 +58,5 @@ In `/etc/gdm3/custom.conf` uncomment WaylandEnable=false for launching session v
     [bluetooth]# scan on
     [bluetooth]# trust <MAC-address>
     [bluetooth]# pair <MAC-address>
-	[bluetooth]# connect <MAC-address>
+    [bluetooth]# connect <MAC-address>
 
