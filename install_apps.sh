@@ -30,6 +30,10 @@ sudo snap install pycharm-community --classic
 echo "Intellij IDEA Community"
 sudo snap install intellij-idea-community --classic
 
+echo "VS Code"
+curl -J -L "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64" -o "vscode.deb"
+sudo dpkg -i vscode.deb
+
 echo "DBeaver"
 wget https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb
 sudo dpkg -i dbeaver-ce_latest_amd64.deb

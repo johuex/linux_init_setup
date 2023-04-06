@@ -48,7 +48,7 @@
 ## Sharing screen issue
 In `/etc/gdm3/custom.conf` uncomment WaylandEnable=false for launching session via X11.
 
-## Bluetooth issue
+## Bluetooth issue (actual for v3-772g)
 :exclamation: Before steps in terminal turn on bluetooth in `Settings`
 
     ~$ bluetoothctl
