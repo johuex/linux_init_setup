@@ -1,0 +1,6 @@
+---
+# other
+- name: Download Postman
+  ansible.builtin.get_url:
+    url: https://dl.pstmn.io/download/latest/linux_64
+    dest: ~/Downloads/postman-linux-x64.tar.gz

@@ -1,0 +1,8 @@
+---
+- include_tasks: apt.yaml
+- include_tasks: user.yaml
+- include_tasks: flatpak.yaml
+- include_tasks: snap.yaml
+- include_tasks: downloadable.yaml
+- include_tasks: docker.yaml
+- include_tasks: aws_cli.yaml

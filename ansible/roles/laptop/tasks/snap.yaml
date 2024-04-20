@@ -1,0 +1,11 @@
+---
+- name: Install snap packages
+  community.general.snap:
+    name:
+      - chromium-ffmpeg
+
+- name: Install snap packages (classic)
+  community.general.snap:
+    name: 
+      - pycharm-community
+    classic: yes

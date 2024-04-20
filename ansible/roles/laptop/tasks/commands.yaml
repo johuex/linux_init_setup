@@ -1,0 +1,43 @@
+---
+- name: Execute in shell
+  tasks:
+    - name: Add second in GNOME Shell Clock
+      ansible.builtin.shell: gsettings set org.gnome.desktop.interface clock-show-seconds true
+      args:
+        executable: "{{ shell }}"
+
+    - name: Increase GMOME window border width
+      ansible.builtin.shell: gsettings set org.gnome.mutter draggable-border-width 15
+      args:
+        executable: "{{ shell }}"
+
+    - name: Fix dualboot time
+      ansible.builtin.shell: timedatectl set-local-rtc 1
+      args:
+        executable: "{{ shell }}"
+
+    - name: Add GITConfig
+      ansible.builtin.shell: |
+        if [ -e ~/.gitconfig ]; then
+        echo "Well, Git config file exists!"
+        else
+        echo "Add Git config file (not filled)"
+        echo '[user]
+                name=
+                email=' > ~/.gitconfig
+        fi
+      args:
+        executable: "{{ shell }}"
+
+    - name: Add AWS Configs
+      ansible.builtin.shell: |
+        mkdir ~/.aws
+        echo '[default]
+        region = 
+        output = ' > ~/.aws/config
+
+        echo '[default]
+        aws_access_key_id = 
+        aws_secret_access_key = ' > ~/.aws/credentials
+      args:
+        executable: "{{ shell }}"

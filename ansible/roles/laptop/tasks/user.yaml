@@ -1,0 +1,35 @@
+---
+- name: Create all required groups
+  group:
+    name: "{{ item }}"
+  loop:
+    - docker
+    - "{{ username }}"
+
+- name: Check non-root user is created
+  user:
+    name: "{{ username }}"
+    password: "{{ password | password_hash('sha512') }}"
+    groups:
+      - sudo
+      - docker
+      - users
+    append: yes
+    shell: "{{ shell }}"
+    update_password: on_create
+
+- name: passwordless sudo for "{{ username }}"
+  lineeditfile:
+    dest: /etc/sudoers
+    regexp: "^%wheel"
+    line: "{{ username }} ALL=(ALL) NOPASSWD: ALL"
+    validate: "/usr/sbin/visudo -cf %s"
+
+- name: Disable SSH password auth
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^#Passwordauthentication yes"
+    line: "Passwordauthentication no"
+  notify: Restart SSH daemon
+
+- meta: flush_handlers  # call handlers immediately

@@ -1,0 +1,46 @@
+---
+- name: Install Docker
+  become: true
+  tasks:
+    - name: Install dependencies
+      apt:
+        name: "{{item}}"
+        state: present
+        update_cache: yes
+      loop:
+        - ca-certificates
+        - curl
+        - gnupg
+        - lsb-release
+    
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+    
+    - name: Add repository docker
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu bionic stable
+        state: present
+    
+    - name: Install docker from repo
+      apt:
+        name: "{{item}}"
+        state: latest
+        update_cache: yes
+      loop:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+        
+    - name: Check docker enabled
+      service:
+        name: docker
+        state: started
+        enabled: yes
+    
+    - name: Add access for user to docker.sock
+      acl:
+        path: /var/run/docker.sock
+        entry: user:"{{ username }}":rw
+        state: present

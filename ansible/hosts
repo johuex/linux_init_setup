@@ -1,0 +1,5 @@
+[laptop]
+ansible_host=localhost
+ansible_user=johuex
+ansible_password={{localhost_password}}
+ansible_connection=ssh

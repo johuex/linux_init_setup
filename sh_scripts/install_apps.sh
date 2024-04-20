@@ -30,7 +30,7 @@ sudo snap install pycharm-community --classic
 echo "Intellij IDEA Community"
 sudo snap install intellij-idea-community --classic
 
-echo "VS Code"
+echo "VSCode"
 curl -J -L "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64" -o "vscode.deb"
 sudo dpkg -i vscode.deb
 
@@ -47,6 +47,7 @@ echo \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt update
 sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+sudo setfacl --modify user:1000:rw /var/run/docker.sock
 
 echo "AWS CLI 2"
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"

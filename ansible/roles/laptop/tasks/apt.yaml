@@ -1,0 +1,16 @@
+---
+- name: APT
+  tasks:
+    - name: Update packages  # like sudo apt update
+      apt:
+        update_cache: true
+        upgrade: "yes"
+
+    - name: Install apt packages
+      packages:
+        name: "{{ apt_packages }}"
+        state: latest
+
+    - name: Download and install deb
+      apt:
+        deb: "{{ deb_packages }}"

@@ -1,0 +1,6 @@
+---
+- hosts: all
+  become: true  # execute like sudo
+
+  roles:
+    - role: laptop
