@@ -4,35 +4,31 @@
 
 ## Checklist
 - [x] apt update && upgrade
-- [x] apt install curl & git
-- [x] apt install python3-pip && python-virtualenv
-- [x] L2TP/IPSec libraries
-- [x] Opera
+- [x] apt install curl git pass vim tmux heif-gdk-pixbuf heif-thumbnailer wireguard jq zsh python3-pip && python-virtualenv
+- [x] snap install vlc
+- [x] L2TP/IPSec libraries (SKIPPED)
+- [x] Opera (SKIPPED)
 - [x] Chrome
-- [x] Chromium-ffmpeg (need for fixing ffmpeg library in Opera)
-- [x] PyCharm Community
-- [x] Intellij IDEA Community
+- [x] Chromium-ffmpeg (need for fixing ffmpeg library in Opera) (SKIPPED)
+- [x] PyCharm Community (SKIPPED)
+- [x] Intellij IDEA Community (SKIPPED)
+- [x] VSCode
 - [x] DBeaver
 - [x] Postman + Desktop Link
-- [ ] Desktop Link for Postman (manual sh script)
 - [x] Docker Engine
 - [x] awscli2
 - [ ] Slack
 - [ ] Discord
-- [x] Flatpak
-- [x] Telegram (Flatpak)
-- [x] Pinta (via Flatpak)
-- [x] Clocks (via Flatpak)
+- [x] Flatpak and packet: telegram, Kolourpaint, clocks
 - [ ] DConf (via Flatpak or deb)
 - [x] chrome-gnome-shell
 - [ ] GNOME Shell Integration in Chrome-based browser
-- [x] imwheel + config
 - [x] gsettings secongs for clock
 - [x] creating templates for aws cli and gitconfig files in $HOME
 - [ ] Shotwave (via Flatpak)
 - [x] fix dualboot time issue
-- [x] *.heic image and thumbnails in nautilus support
-- [ ] BT connect issue
+- [x] Nekoray client
+- [ ] BT connect issue (only V3-772G)
 
 ## Download links
 * [Slack](https://slack.com/downloads/linux)

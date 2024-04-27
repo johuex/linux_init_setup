@@ -1,143 +1,123 @@
-#!usr/bin/bash
+#!/bin/bash
 
-echo "APT update && upgrade"
-sudo apt update -y
-sudo apt upgrade -y
+TMP_DIR="tmp"
 
-echo "Another DEV tools"
-sudo apt install -y curl git
+on_exit() {
+  rm -rf ${TMP_DIR}
+}
 
-echo "Python tools install"
-sudo apt install -y python3-pip python3-virtualenv
+log() {
+    printf "$(date '+%Y-%m-%d %T.%6N') ${1}\n"
+}
 
-echo "Opera browser"
-curl -fsSL https://deb.opera.com/archive.key | sudo gpg --dearmor -o /usr/share/keyrings/operabrowser-keyring.gpg
-echo "deb [signed-by=/usr/share/keyrings/operabrowser-keyring.gpg] https://deb.opera.com/opera-stable/ stable non-free" | sudo tee /etc/apt/sources.list.d/opera-stable.list
-sudo apt update
-sudo apt install -y opera-stable
+trap on_exit EXIT
 
-echo "Chrome browser"
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo dpkg -i google-chrome-stable_current_amd64.deb
+log "APT update && upgrade"
+sudo apt update -y > /dev/null
+sudo apt upgrade -y > /dev/null
 
-echo "Opera libffmpeg fix"
-sudo snap install chromium-ffmpeg
-sudo cp /snap/chromium-ffmpeg/current/chromium-ffmpeg-107578/chromium-ffmpeg/libffmpeg.so /usr/lib/x86_64-linux-gnu/opera/libffmpeg.so
+log "Install via APT"
+sudo apt install -y curl git pass vim tmux heif-gdk-pixbuf heif-thumbnailer wireguard jq zsh python3-pip python3-virtualenv > /dev/null
 
-echo "PyCharm Community"
-sudo snap install pycharm-community --classic
+log "Install via snap"
+sudo snap set system refresh.retain=1 > /dev/null
+sudo snap install vlc > /dev/null
 
-echo "Intellij IDEA Community"
-sudo snap install intellij-idea-community --classic
+log "Chrome browser"
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -P $TMP_DIR > /dev/null
+sudo dpkg -i "${TMP_DIR}/google-chrome-stable_current_amd64.deb" > /dev/null
 
-echo "VS Code"
-curl -J -L "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64" -o "vscode.deb"
-sudo dpkg -i vscode.deb
+log "VS Code"
+curl -J -L "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64" -o "${TMP_DIR}/vscode.deb" > /dev/null
+sudo dpkg -i "${TMP_DIR}/vscode.deb" > /dev/null
 
-echo "DBeaver"
-wget https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb
-sudo dpkg -i dbeaver-ce_latest_amd64.deb
+log "DBeaver"
+wget https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb -p "${TMP_DIR}" > /dev/null
+sudo dpkg -i "${TMP_DIR}/dbeaver-ce_latest_amd64.deb" > /dev/null
 
-echo "Docker Engine"
-sudo apt install -y ca-certificates curl gnupg lsb-release
-sudo mkdir -p /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+log "Docker Engine"
+sudo apt install -y ca-certificates curl gnupg lsb-release > /dev/null
+sudo mkdir -p /etc/apt/keyrings > /dev/null
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg > /dev/null
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt update
-sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+sudo apt update > /dev/null
+sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin > /dev/null
 
-echo "AWS CLI 2"
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip awscliv2.zip
-sudo ./aws/install
-rm -rf aws
-rm awscliv2.zip
+log "AWS CLI 2"
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "${TMP_DIR}/awscliv2.zip" > /dev/null
+unzip awscliv2.zip -d "${TMP_DIR}" > /dev/null
+sudo "${TMP_DIR}/aws/install" > /dev/null
 
+log "Chrome GNOME shell"
+sudo apt -y install chrome-gnome-shell > /dev/null
 
-echo "Chrome GNOME shell"
-sudo apt -y install chrome-gnome-shell
+log "Add second in GNOME Shell Clock"
+gsettings set org.gnome.desktop.interface clock-show-seconds true > /dev/null
 
-#echo "Imwheel + Config + Start"
-#sudo apt install -y imwheel
-#echo '".*"             
-#    None, Up, Button4, 5
-#    None, Down, Button5, 5
-#    Shift_L,   Up,   Shift_L|Button4, 4
-#    Shift_L,   Down, Shift_L|Button5, 4
-#    Control_L, Up,   Control_L|Button4
-#    Control_L, Down, Control_L|Button5' > ~/.imwheelrc
-#imwheel
+log "increase GMOME window border width"
+gsettings set org.gnome.mutter draggable-border-width 15 > /dev/null
 
-echo "Add second in GNOME Shell Clock"
-gsettings set org.gnome.desktop.interface clock-show-seconds true
+log "Flatpak"
+sudo apt install -y flatpak gnome-software-plugin-flatpak > /dev/null
 
-echo "increase GMOME window border width"
-gsettings set org.gnome.mutter draggable-border-width 15
+log "Telegram"
+wget https://dl.flathub.org/repo/appstream/org.telegram.desktop.flatpakref -d "${TMP_DIR}" > /dev/null
+sudo flatpak install -y "${TMP_DIR}/org.telegram.desktop.flatpakref" > /dev/null
 
-echo "Flatpak"
-sudo apt install -y flatpak gnome-software-plugin-flatpak
+log "KDE Clocks"
+wget https://dl.flathub.org/repo/appstream/org.gnome.clocks.flatpakref -d "${TMP_DIR}" > /dev/null
+sudo flatpak install -y "${TMP_DIR}/org.gnome.clocks.flatpakref" > /dev/null
 
-echo "L2TP/IPSec client libraries"
-sudo apt install -y network-manager-l2tp  network-manager-l2tp-gnome
+log "KolourPaint"
+wget https://dl.flathub.org/repo/appstream/org.kde.kolourpaint.flatpakref -d "${TMP_DIR}" > /dev/null
+sudo flatpak install -y "${TMP_DIR}/org.kde.kolourpaint.flatpakref" > /dev/null
 
-echo "Telegram"
-wget https://dl.flathub.org/repo/appstream/org.telegram.desktop.flatpakref
-sudo flatpak install -y org.telegram.desktop.flatpakref
+log "Postman"
+curl -sOJL https://dl.pstmn.io/download/latest/linux_64
+mv postman-linux-x64.tar.gz  "${TMP_DIR}" > > /dev/null
+tar -xvzf "${TMP_DIR}/postman-linux-x64.tar.gz" -C ~ > /dev/null
+username="$(whoami)"
+cat samples/postman.desktop > ~/.local/share/applications/postman.desktop
 
-echo "KDE Clocks"
-wget https://dl.flathub.org/repo/appstream/org.gnome.clocks.flatpakref
-sudo flatpak install -y org.gnome.clocks.flatpakref
-
-echo "Pinta"
-wget https://dl.flathub.org/repo/appstream/com.github.PintaProject.Pinta.flatpakref
-sudo flatpak install -y com.github.PintaProject.Pinta.flatpakref
-
-echo "Postman"
-curl -O -J -L https://dl.pstmn.io/download/latest/linux_64
-tar -xvzf postman-linux-x64.tar.gz -C ~
-
-# problems with autocomplete downloadnig in curl
-#echo "Discord"
-#curl -o discrod.deb O -J -L https://discord.com/api/download?platform=linux&format=deb
-#sudo dpkg -i discord
-#sudo apt install -f
-
-echo "Pass"
-sudo apt install -y pass
-
-if [ -e ~/.gitconfig ]; then
-echo "Well, Git config file exists!"
-else
-echo "Add Git config file (not filled)"
-echo '[user]
-        name=
-        email=' > ~/.gitconfig
+if [[ ! -e ~/.gitconfig ]]; then
+    log "Add Git config file"
+    read -p "Enter fullname: " git_name
+    read -p "Enter fullname: " git_email
+    cat samples/.gitconfig > ~/.gitconfig
 fi
 
-echo "Add AWS config files (not filled)"
-mkdir ~/.aws
-echo '[default]
-region = 
-output = ' > ~/.aws/config
 
-echo '[default]
-aws_access_key_id = 
-aws_secret_access_key = ' > ~/.aws/credentials
+if [[ ! -d ~/.aws ]]; then
+    echo "Add AWS config files"
+    mkdir ~/.aws
+    read -p "Enter aws region: " aws_region
+    read -p "Enter output: " aws_output
+    cat samples/.aws/config > ~/.aws/config
+    read -p "Enter aws access key: " aws_access
+    read -p "Enter aws secret key: " aws_secret
+    cat samples/.aws/credentails > ~/.aws/credentails
+fi
 
-echo "fix dual boot time error in Windows and Ubuntu"
-timedatectl set-local-rtc 1
+log "fix dual boot time error in Windows and Ubuntu"
+timedatectl set-local-rtc 1 > /dev/null
 
-echo "*.heic support"
-sudo apt install heif-gdk-pixbuf heif-thumbnailer
+# TODO: blanket, Ear Tags, Spotify, ShortWave, Nekoray, wireguard gnome addon, fill args in samples. GOlang
+# TODO: alises and exports to .zshrc (with yq)
+log "Nekoray client"
+nekoray_url=$(curl -s https://api.github.com/repos/MatsuriDayo/nekoray/releases/latest | jq ".assets[0].browser_download_url")
+wget "${nekoray_url}" -P $TMP_DIR  -O nekoray_latest.deb > /dev/null
+sudo dpkg -i "${TMP_DIR}/nekoray_latest.deb" > /dev/null
 
-echo "Next your manual steps: 
+log "Copy vim & tmux configs"
+cp -r samples/vim/ ~
+cp samples/tmux/.tmux.conf ~
+cp samples/tmux/.tmux.conf.local ~
+
+echo "Next your manual steps:
 1. Reboot;
 2. Add VPN creds;
-3. Install Slack, Discord, Postman(add Desktop link) from WEB;
-4. Fill in creds for AWS;
-5. Fill in creds for git;
+3. Install Slack, Discord from WEB;
 6. Install in your Chrome-based browser GNOME Shell integration extension;
-7. In Gnome Extension install: ... ;
-8. Add imwheel as startup application."
+7. In CHROME install Gnome Extension install from README.md. (#TODO: update list with wireguard)

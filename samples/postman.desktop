@@ -1,8 +1,4 @@
-#!usr/bin/bash
-
-username="$(whoami)"
-
-echo "[Desktop Entry]
+[Desktop Entry]
 Encoding=UTF-8
 Version=1.0
 Name=Postman
@@ -14,4 +10,4 @@ StartupWMClass=postman
 Type=Application
 Categories=Network;
 MimeType=x-scheme-handler/tg;
-X-Desktop-File-Install-Version=0.22" > ~/.local/share/applications/postman.desktop
+X-Desktop-File-Install-Version=0.22
