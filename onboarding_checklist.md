@@ -28,6 +28,7 @@
 - [ ] Shotwave (via Flatpak)
 - [x] fix dualboot time issue
 - [x] Nekoray client
+- [x] vim & tmux configs
 - [ ] BT connect issue (only V3-772G)
 
 ## Download links
@@ -38,6 +39,7 @@
 * [GNOME: Media Control](https://extensions.gnome.org/extension/4470/media-controls/)
 * [GNOME: "App is ready" notification remover](https://extensions.gnome.org/extension/1007/window-is-ready-notification-remover/)
 * [GNOME: Bluetooth Quick Connect](https://extensions.gnome.org/extension/1401/bluetooth-quick-connect/)
+* [GNOME: WireGuard Indicator](https://extensions.gnome.org/extension/3612/wireguard-indicator/)
 * [GNOME: Notification Banner Position](https://extensions.gnome.org/extension/4105/notification-banner-position/)
 * [GNOME: Notification Banner Reloaded](https://extensions.gnome.org/extension/4651/notification-banner-reloaded/)
 
