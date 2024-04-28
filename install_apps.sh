@@ -3,7 +3,7 @@
 TMP_DIR="tmp"
 
 on_exit() {
-  rm -rf ${TMP_DIR}
+    rm -rf ${TMP_DIR}
 }
 
 log() {
@@ -78,14 +78,13 @@ log "Postman"
 curl -sOJL https://dl.pstmn.io/download/latest/linux_64
 mv postman-linux-x64.tar.gz  "${TMP_DIR}" > > /dev/null
 tar -xvzf "${TMP_DIR}/postman-linux-x64.tar.gz" -C ~ > /dev/null
-username="$(whoami)"
-cat samples/postman.desktop > ~/.local/share/applications/postman.desktop
+username=$(whoami) envsubst '$username' < samples/postman.desktop > ~/.local/share/applications/postman.desktop
 
 if [[ ! -e ~/.gitconfig ]]; then
     log "Add Git config file"
     read -p "Enter fullname: " git_name
     read -p "Enter fullname: " git_email
-    cat samples/.gitconfig > ~/.gitconfig
+    git_name=$git_name git_email=$git_email envsubst '$git_name,$git_email' < samples/.gitconfig > ~/.gitconfig
 fi
 
 
@@ -94,10 +93,9 @@ if [[ ! -d ~/.aws ]]; then
     mkdir ~/.aws
     read -p "Enter aws region: " aws_region
     read -p "Enter output: " aws_output
-    cat samples/.aws/config > ~/.aws/config
     read -p "Enter aws access key: " aws_access
     read -p "Enter aws secret key: " aws_secret
-    cat samples/.aws/credentails > ~/.aws/credentails
+    aws_access=$aws_access aws_secret=$aws_secret envsubst '$aws_access,$aws_secret' < samples/.aws/credentails > ~/.aws/credentails
 fi
 
 log "fix dual boot time error in Windows and Ubuntu"
@@ -111,9 +109,9 @@ wget "${nekoray_url}" -P $TMP_DIR  -O nekoray_latest.deb > /dev/null
 sudo dpkg -i "${TMP_DIR}/nekoray_latest.deb" > /dev/null
 
 log "Copy vim & tmux configs"
-cp -r samples/vim/ ~
-cp samples/tmux/.tmux.conf ~
-cp samples/tmux/.tmux.conf.local ~
+cp -r samples/vim/ ~ > /dev/null
+cp samples/tmux/.tmux.conf ~ > /dev/null
+cp samples/tmux/.tmux.conf.local ~ > /dev/null
 
 echo "Next your manual steps:
 1. Reboot;
