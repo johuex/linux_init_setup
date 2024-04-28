@@ -6,3 +6,4 @@
 * Install ZSH + OhMyZSH with addons: `zsh_install_with_adds.sh`;
 * Opera libffmpeg fix after browser update: `opera_libffmpeg.sh`;
 * Sample configs: `samples/`
+* Some work but not actual code: `skipped.sh`
