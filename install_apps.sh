@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 TMP_DIR="tmp"
 GNOME_EXT=()
 
@@ -21,65 +23,65 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 log "APT update && upgrade"
-sudo apt update -y > /dev/null
-sudo apt upgrade -y > /dev/null
+sudo apt update -y
+sudo apt upgrade -y
 
 log "Install via APT"
 sudo apt install -y curl git pass vim tmux heif-gdk-pixbuf heif-thumbnailer \
     wireguard jq zsh python3-pip python3-virtualenv gnome-extensions \
-    flatpak gnome-software-plugin-flatpak chrome-gnome-shell > /dev/null
+    flatpak chrome-gnome-shell
 
 log "Install via snap"
-sudo snap set system refresh.retain=1 > /dev/null
-sudo snap install vlc spotify > /dev/null
+sudo snap set system refresh.retain=2
+sudo snap install vlc spotify
 
 log "Chrome browser"
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -P $TMP_DIR > /dev/null
-sudo dpkg -i "${TMP_DIR}/google-chrome-stable_current_amd64.deb" > /dev/null
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -P $TMP_DIR
+sudo dpkg -i "${TMP_DIR}/google-chrome-stable_current_amd64.deb"
 
 log "VS Code"
-curl -J -L "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64" -o "${TMP_DIR}/vscode.deb" > /dev/null
-sudo dpkg -i "${TMP_DIR}/vscode.deb" > /dev/null
+curl -J -L "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64" -o "${TMP_DIR}/vscode.deb"
+sudo dpkg -i "${TMP_DIR}/vscode.deb"
 
 log "DBeaver"
-wget https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb -p "${TMP_DIR}" > /dev/null
-sudo dpkg -i "${TMP_DIR}/dbeaver-ce_latest_amd64.deb" > /dev/null
+wget https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb -p "${TMP_DIR}"
+sudo dpkg -i "${TMP_DIR}/dbeaver-ce_latest_amd64.deb"
 
 log "Docker Engine"
-sudo apt install -y ca-certificates curl gnupg lsb-release > /dev/null
-sudo mkdir -p /etc/apt/keyrings > /dev/null
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg > /dev/null
+sudo apt install -y ca-certificates curl gnupg lsb-release
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt update > /dev/null
-sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin > /dev/null
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
+sudo apt update
+sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
 log "AWS CLI 2"
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "${TMP_DIR}/awscliv2.zip" > /dev/null
-unzip awscliv2.zip -d "${TMP_DIR}" > /dev/null
-sudo "${TMP_DIR}/aws/install" > /dev/null
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "${TMP_DIR}/awscliv2.zip"
+unzip awscliv2.zip -d "${TMP_DIR}"
+sudo "${TMP_DIR}/aws/install"
 
 log "Postman"
 curl -sOJL https://dl.pstmn.io/download/latest/linux_64
-mv postman-linux-x64.tar.gz  "${TMP_DIR}" > > /dev/null
-tar -xvzf "${TMP_DIR}/postman-linux-x64.tar.gz" -C ~ > /dev/null
+mv postman-linux-x64.tar.gz  "${TMP_DIR}" >
+tar -xvzf "${TMP_DIR}/postman-linux-x64.tar.gz" -C ~
 username=$(whoami) envsubst '$username' < samples/postman.desktop > ~/.local/share/applications/postman.desktop
 
 log "Golang"
 read -p "Enter Golang version for install (1.22.2 for example): " golang_version
-sudo rm -rf /usr/local/go > /dev/null
-wget "https://go.dev/dl/go${golang_version}.linux-amd64.tar.gz" -P $TMP_DIR > /dev/null
+sudo rm -rf /usr/local/go
+wget "https://go.dev/dl/go${golang_version}.linux-amd64.tar.gz" -P $TMP_DIR
 if [[ -e "${TMP_DIR}/go${golang_version}.linux-amd64.tar.gz" ]]; then
-    sudo tar -C /usr/local -xzf "${TMP_DIR}/go${golang_version}.linux-amd64.tar.gz" > /dev/null
+    sudo tar -C /usr/local -xzf "${TMP_DIR}/go${golang_version}.linux-amd64.tar.gz"
 else
     log "Golang wasn't installed, maybe incorrect version was passed"
 fi
 
 log "Add second in GNOME Shell Clock"
-gsettings set org.gnome.desktop.interface clock-show-seconds true > /dev/null
+gsettings set org.gnome.desktop.interface clock-show-seconds true
 log "increase GMOME window border width"
-gsettings set org.gnome.mutter draggable-border-width 15 > /dev/null
+gsettings set org.gnome.mutter draggable-border-width 15
 
 flatpak --version
 if [[ $? -eq 0 ]]; then
@@ -110,19 +112,19 @@ if [[ ! -d ~/.aws ]]; then
 fi
 
 log "fix dual boot time error in Windows and Ubuntu"
-timedatectl set-local-rtc 1 > /dev/null
+timedatectl set-local-rtc 1
 
 # TODO: alises and exports to .zshrc (with yq)
 # TODO: maybe instruction from TV (firewall) + ubuntu cleaners
 log "Nekoray client"
 nekoray_url=$(curl -s https://api.github.com/repos/MatsuriDayo/nekoray/releases/latest | jq ".assets[0].browser_download_url")
-wget "${nekoray_url}" -P $TMP_DIR  -O nekoray_latest.deb > /dev/null
-sudo dpkg -i "${TMP_DIR}/nekoray_latest.deb" > /dev/null
+wget "${nekoray_url}" -P $TMP_DIR  -O nekoray_latest.deb
+sudo dpkg -i "${TMP_DIR}/nekoray_latest.deb"
 
 log "Copy vim & tmux configs"
-cp -r samples/vim/ ~ > /dev/null
-cp samples/tmux/.tmux.conf ~ > /dev/null
-cp samples/tmux/.tmux.conf.local ~ > /dev/null
+cp -r samples/vim/ ~
+cp samples/tmux/.tmux.conf ~
+cp samples/tmux/.tmux.conf.local ~
 
 log "Check installed"
 pass --version
