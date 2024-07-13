@@ -28,7 +28,7 @@ sudo apt upgrade -y
 
 log "Install via APT"
 sudo apt install -y curl git pass vim tmux heif-gdk-pixbuf heif-thumbnailer \
-    wireguard jq zsh python3-pip python3-virtualenv gnome-extensions \
+    wireguard jq zsh python3-pip python3-virtualenv \
     flatpak chrome-gnome-shell
 
 log "Install via snap"
@@ -56,15 +56,18 @@ echo \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
 sudo apt update
 sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+sudo groupadd docker
+sudo usermod -aG docker $USER
+
 
 log "AWS CLI 2"
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "${TMP_DIR}/awscliv2.zip"
-unzip awscliv2.zip -d "${TMP_DIR}"
+unzip "${TMP_DIR}/awscliv2.zip" -d "${TMP_DIR}"
 sudo "${TMP_DIR}/aws/install"
 
 log "Postman"
-curl -sOJL https://dl.pstmn.io/download/latest/linux_64
-mv postman-linux-x64.tar.gz  "${TMP_DIR}" >
+curl -OJL https://dl.pstmn.io/download/latest/linux_64
+mv postman-linux-x64.tar.gz "${TMP_DIR}"
 tar -xvzf "${TMP_DIR}/postman-linux-x64.tar.gz" -C ~
 username=$(whoami) envsubst '$username' < samples/postman.desktop > ~/.local/share/applications/postman.desktop
 
@@ -85,10 +88,11 @@ gsettings set org.gnome.mutter draggable-border-width 15
 
 flatpak --version
 if [[ $? -eq 0 ]]; then
+    flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     flatfefs=( org.telegram.desktop org.gnome.clocks org.kde.kolourpaint app.drey.EarTag com.rafaelmardojai.Blanket de.haeckerfelix.Shortwave)
     for flref in ${flatfefs[@]}; docker
         log "Flatpak: ${flref}"
-        flatpak install flathub $flref
+        flatpak install -y flathub $flref
     done
 else
     log "flatpak missed so flatpak packages weren't installed"
@@ -113,6 +117,16 @@ fi
 
 log "fix dual boot time error in Windows and Ubuntu"
 timedatectl set-local-rtc 1
+
+log "Install Vundle (Vim plugin manager)"
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+log "Install ZSH Dependecies"
+sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
+
 
 # TODO: alises and exports to .zshrc (with yq)
 # TODO: maybe instruction from TV (firewall) + ubuntu cleaners
