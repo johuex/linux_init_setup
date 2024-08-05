@@ -1,35 +1,27 @@
-# V3-772G
+# T14-G2a
 * True checkbox - automated step
 * False checkbox - manual step
 
 ## Checklist
-- [x] apt update && upgrade
-- [x] apt install curl git pass vim tmux heif-gdk-pixbuf heif-thumbnailer wireguard jq zsh python3-pip && python-virtualenv
-- [x] snap install vlc
-- [x] L2TP/IPSec libraries (SKIPPED)
-- [x] Opera (SKIPPED)
-- [x] Chrome
-- [x] Chromium-ffmpeg (need for fixing ffmpeg library in Opera) (SKIPPED)
-- [x] PyCharm Community (SKIPPED)
-- [x] Intellij IDEA Community (SKIPPED)
+- [x] add RPM fusion, workstation & docker repo to dnf
+- [x] dnf install pass vim tmux libheif-freeworld  libheif-tools zsh python3-pip python3-virtualenv vlc google-chrome-stable vlc
+- [x] GOlang compliler
 - [x] VSCode
 - [x] DBeaver
 - [x] Postman + Desktop Link
-- [x] Docker Engine
+- [x] Docker Engine + sudoless
 - [x] awscli2
 - [ ] Slack
 - [ ] Discord
-- [x] Flatpak and packet: telegram, Kolourpaint, clocks
-- [ ] DConf (via Flatpak or deb)
-- [x] chrome-gnome-shell
+- [x] Flatpak and packet: telegram, Kolourpaint, clocks, Shotwave, EarTag
 - [ ] GNOME Shell Integration in Chrome-based browser
-- [x] gsettings secongs for clock
+- [x] gsettings seconds for clock, windows borders and window title buttons (minimize, maximize, close)
 - [x] creating templates for aws cli and gitconfig files in $HOME
-- [ ] Shotwave (via Flatpak)
 - [x] fix dualboot time issue
-- [x] Nekoray client
-- [x] vim & tmux configs
-- [ ] BT connect issue (only V3-772G)
+- [x] install ohmyzsh
+- [x] vim vundle
+- [x] Nekoray client + Desktop Link
+- [x] vim,tmux,zsh configs
 
 ## Download links
 * [Slack](https://slack.com/downloads/linux)
@@ -42,19 +34,8 @@
 * [GNOME: WireGuard Indicator](https://extensions.gnome.org/extension/3612/wireguard-indicator/)
 * [GNOME: Notification Banner Position](https://extensions.gnome.org/extension/4105/notification-banner-position/)
 * [GNOME: Notification Banner Reloaded](https://extensions.gnome.org/extension/4651/notification-banner-reloaded/)
+* [GNOME: Dash to Dock](https://extensions.gnome.org/extension/307/dash-to-dock/)
 
 ## Sharing screen issue
 In `/etc/gdm3/custom.conf` uncomment WaylandEnable=false for launching session via X11.
-
-## Bluetooth issue (actual for v3-772g)
-:exclamation: Before steps in terminal turn on bluetooth in `Settings`
-
-    ~$ bluetoothctl
-    [bluetooth]# power on
-    [bluetooth]# agent on
-    [bluetooth]# default-agent
-    [bluetooth]# scan on
-    [bluetooth]# trust <MAC-address>
-    [bluetooth]# pair <MAC-address>
-    [bluetooth]# connect <MAC-address>
 

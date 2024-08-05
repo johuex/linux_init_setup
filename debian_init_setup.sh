@@ -1,26 +1,7 @@
 #!/bin/bash
 
+# Ubuntu install apps
 set -e
-
-TMP_DIR="tmp"
-GNOME_EXT=()
-
-on_exit() {
-    rm -rf ${TMP_DIR}
-}
-
-log() {
-    printf "$(date '+%Y-%m-%d %T.%6N') ${1}\n"
-}
-
-trap on_exit EXIT
-
-mkdir $TMP_DIR
-
-if [[ $EUID -ne 0 ]]; then
-    echo "Please run script as root"
-    exit 0
-fi
 
 log "APT update && upgrade"
 sudo apt update -y
@@ -121,24 +102,21 @@ timedatectl set-local-rtc 1
 log "Install Vundle (Vim plugin manager)"
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
-log "Install ZSH Dependecies"
+log "Install ZSH"
 sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-
-
+sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
 
 # TODO: alises and exports to .zshrc (with yq)
 # TODO: maybe instruction from TV (firewall) + ubuntu cleaners
 log "Nekoray client"
-nekoray_url=$(curl -s https://api.github.com/repos/MatsuriDayo/nekoray/releases/latest | jq ".assets[0].browser_download_url")
+nekoray_url=$(curl -s https://api.github.com/repos/MatsuriDayo/nekoray/releases/latest  | jq -r '.assets[] | select(.name | contains ("deb")) | .browser_download_url')
 wget "${nekoray_url}" -P $TMP_DIR  -O nekoray_latest.deb
 sudo dpkg -i "${TMP_DIR}/nekoray_latest.deb"
 
-log "Copy vim & tmux configs"
-cp -r samples/vim/ ~
-cp samples/tmux/.tmux.conf ~
-cp samples/tmux/.tmux.conf.local ~
+log "Copy vim,tmux,zsh configs"
+cp -a samples/vim/. ~/
+cp -a samples/tmux/. ~/
+cp -a samples/zsh/. ~/
 
 log "Check installed"
 pass --version
@@ -161,4 +139,4 @@ echo "Next your manual steps:
 3. Install Slack, Discord from WEB;
 4. Install in your Chrome-based browser GNOME Shell integration extension;
 5. In CHROME install Gnome Extension install from README.md;
-6. Apply dependencies in tmux and vim."
+6. Apply dependencies in vim."

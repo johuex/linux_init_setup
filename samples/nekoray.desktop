@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Name=Nekoray
+Comment=Nekoray Proxy App
+Exec=/home/$username/Nekoray/nekoray.AppImage — %u
+Icon=/home/$username/Nekoray/nekoray.png
+Terminal=false
+StartupWMClass=nekoray
+Type=Application
+Categories=Network;
+MimeType=x-scheme-handler/tg;
+X-Desktop-File-Install-Version=0.22
