@@ -109,6 +109,11 @@ mv "${TMP_DIR}/nekoray_latest.AppImage" ~/Nekoray/
 mv samples/nekoray.png ~/Nekoray/
 username=$(whoami) envsubst '$username' < samples/nekoray.desktop > ~/.local/share/applications/nekoray.desktop
 
+log "Discord"
+wget https://discord.com/api/download?platform=linux&format=tar.gz -P $TMP_DIR  -O discord.tar.gz
+tar -xf "${TMP_DIR}/discord.tar.gz" Discord -C /usr/share/discord/ 
+cp samples/discord.desktop > ~/.local/share/applications/discord.desktop
+
 log "Copy vim,tmux,zsh configs"
 cp -a samples/vim/. ~/
 cp -a samples/tmux/. ~/

@@ -12,7 +12,7 @@
 - [x] Docker Engine + sudoless
 - [x] awscli2
 - [ ] Slack
-- [ ] Discord
+- [x] Discord
 - [x] Flatpak and packet: telegram, Kolourpaint, clocks, Shotwave, EarTag
 - [ ] GNOME Shell Integration in Chrome-based browser
 - [x] gsettings seconds for clock, windows borders and window title buttons (minimize, maximize, close)
@@ -35,6 +35,7 @@
 * [GNOME: Notification Banner Position](https://extensions.gnome.org/extension/4105/notification-banner-position/)
 * [GNOME: Notification Banner Reloaded](https://extensions.gnome.org/extension/4651/notification-banner-reloaded/)
 * [GNOME: Dash to Dock](https://extensions.gnome.org/extension/307/dash-to-dock/)
+* [GNOME: AppIndicator in tray](https://extensions.gnome.org/extension/615/appindicator-support/)
 
 ## Sharing screen issue
 In `/etc/gdm3/custom.conf` uncomment WaylandEnable=false for launching session via X11.

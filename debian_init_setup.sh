@@ -106,12 +106,17 @@ log "Install ZSH"
 sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
 sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
 
-# TODO: alises and exports to .zshrc (with yq)
 # TODO: maybe instruction from TV (firewall) + ubuntu cleaners
 log "Nekoray client"
 nekoray_url=$(curl -s https://api.github.com/repos/MatsuriDayo/nekoray/releases/latest  | jq -r '.assets[] | select(.name | contains ("deb")) | .browser_download_url')
 wget "${nekoray_url}" -P $TMP_DIR  -O nekoray_latest.deb
 sudo dpkg -i "${TMP_DIR}/nekoray_latest.deb"
+
+
+log "Discord"
+wget https://discord.com/api/download?platform=linux&format=tar.gz -P $TMP_DIR  -O discord.tar.gz
+tar -xf "${TMP_DIR}/discord.tar.gz" Discord -C /usr/share/discord/ 
+cp samples/discord.desktop > ~/.local/share/applications/discord.desktop
 
 log "Copy vim,tmux,zsh configs"
 cp -a samples/vim/. ~/

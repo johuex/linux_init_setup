@@ -13,7 +13,7 @@
 - [x] Docker Engine
 - [x] awscli2
 - [ ] Slack
-- [ ] Discord
+- [x] Discord
 - [x] Flatpak and packet: telegram, Kolourpaint, clocks, Shotwave, EarTag
 - [x] chrome-gnome-shell
 - [ ] GNOME Shell Integration in Chrome-based browser
